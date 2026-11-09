@@ -47,6 +47,18 @@
       box-shadow: 0 20px 40px rgba(0, 0, 0, 0.2);
       transition: transform 0.3s, box-shadow 0.3s;
     }
+
+    /* Section fade‑in animation */
+    .section {
+      opacity: 0;
+      transform: translateY(20px);
+      transition: opacity 0.6s ease-out, transform 0.6s ease-out;
+    }
+
+    .section.in-view {
+      opacity: 1;
+      transform: translateY(0);
+    }
   </style>
 </head>
 
@@ -69,6 +81,7 @@
         <a href="#services" class="hover:text-blue-400 transition">Services</a>
         <a href="#partners" class="hover:text-blue-400 transition">Partners</a>
         <a href="#about" class="hover:text-blue-400 transition">About</a>
+        <a href="#contact" class="hover:text-blue-400 transition">Contact</a>
       </div>
 
       <!-- Call‑to‑action -->
@@ -81,7 +94,7 @@
   </nav>
 
   <!-- ==================== HERO ==================== -->
-  <section id="home" class="min-h-screen flex items-center relative">
+  <section id="home" class="min-h-screen flex items-center relative section">
     <div class="absolute inset-0 bg-gradient-to-r from-indigo-800 via-blue-900 to-indigo-800 opacity-70"></div>
 
     <div class="max-w-7xl mx-auto px-6 relative z-10 grid md:grid-cols-2 gap-12 items-center">
@@ -114,85 +127,85 @@
              id="cloudIcon"></i>
         </div>
       </div>
-    </div>
-  </section>
+        
+    </section>
 
-  <!-- ==================== STATS ==================== -->
-  <section class="py-16 bg-gray-800">
-    <div class="max-w-7xl mx-auto grid grid-cols-2 md:grid-cols-4 gap-8 text-center">
-      <div>
-        <h3 class="text-4xl font-semibold text-blue-400 mb-2">2016</h3>
-        <p class="text-gray-400">Year Established</p>
-      </div>
-      <div>
-        <h3 class="text-4xl font-semibold text-blue-400 mb-2">50+</h3>
-        <p class="text-gray-400">Projects Delivered</p>
-      </div>
-      <div>
-        <h3 class="text-4xl font-semibold text-blue-400 mb-2">98%</h3>
-        <p class="text-gray-400">Client Satisfaction</p>
-      </div>
-      <div>
-        <h3 class="text-4xl font-semibold text-blue-400 mb-2">15+</h3>
-        <p class="text-gray-400">Years Experience</p>
-      </div>
-    </div>
-  </section>
-
-  <!-- ==================== SERVICES ==================== -->
-  <section id="services" class="py-20 bg-gray-900">
-    <div class="max-w-7xl mx-auto px-6">
-      <h2 class="text-4xl font-bold text-center mb-12">Our IT Solutions</h2>
-
-      <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
-        <!-- Service Card -->
-        <div class="card bg-gray-800 rounded-xl p-8 flex flex-col gap-4">
-          <div class="w-16 h-16 rounded-full bg-blue-500/20 flex items-center justify-center">
-            <i class="fas fa-network-wired text-3xl text-blue-400"></i>
-          </div>
-          <h3 class="text-xl font-semibold">Network Infrastructure</h3>
-          <p class="text-gray-400 flex-1">
-            From design to deployment – we build resilient networks for every size of business.
-          </p>
+    <!-- ==================== STATS ==================== -->
+    <section class="py-16 bg-gray-800 section">
+      <div class="max-w-7xl mx-auto grid grid-cols-2 md:grid-cols-4 gap-8 text-center">
+        <div>
+          <h3 class="text-4xl font-semibold text-blue-400 mb-2">2016</h3>
+          <p class="text-gray-400">Year Established</p>
         </div>
-
-        <!-- Service Card -->
-        <div class="card bg-gray-800 rounded-xl p-8 flex flex-col gap-4">
-          <div class="w-16 h-16 rounded-full bg-blue-500/20 flex items-center justify-center">
-            <i class="fas fa-laptop text-3xl text-blue-400"></i>
-          </div>
-          <h3 class="text-xl font-semibold">Hardware & Software</h3>
-          <p class="text-gray-400 flex-1">
-            Cutting‑edge servers, workstations, and software suites tailored to your needs.
-          </p>
+        <div>
+          <h3 class="text-4xl font-semibold text-blue-400 mb-2">50+</h3>
+          <p class="text-gray-400">Projects Delivered</p>
         </div>
-
-        <!-- Service Card -->
-        <div class="card bg-gray-800 rounded-xl p-8 flex flex-col gap-4">
-          <div class="w-16 h-16 rounded-full bg-blue-500/20 flex items-center justify-center">
-            <i class="fas fa-cloud text-3xl text-blue-400"></i>
-          </div>
-          <h3 class="text-xl font-semibold">Cloud Solutions</h3>
-          <p class="text-gray-400 flex-1">
-            Secure migration, managed services, and disaster recovery in the cloud.
-          </p>
+        <div>
+          <h3 class="text-4xl font-semibold text-blue-400 mb-2">98%</h3>
+          <p class="text-gray-400">Client Satisfaction</p>
         </div>
-
-        <!-- Service Card -->
-        <div class="card bg-gray-800 rounded-xl p-8 flex flex-col gap-4">
-          <div class="w-16 h-16 rounded-full bg-blue-500/20 flex items-center justify-center">
-            <i class="fas fa-shield-alt text-3xl text-blue-400"></i>
-          </div>
-          <h3 class="text-xl font-semibold">Cybersecurity</h3>
-          <p class="text-gray-400 flex-1">
-            Firewalls, endpoint protection, and threat intelligence to keep your assets safe.
-          </p>
+        <div>
+          <h3 class="text-4xl font-semibold text-blue-400 mb-2">15+</h3>
+          <p class="text-gray-400">Years Experience</p>
         </div>
+      </div>
+    </section>
 
-        <!-- Service Card -->
-        <div class="card bg-gray-800 rounded-xl p-8 flex flex-col gap-4">
-          <div class="w-16 h-16 rounded-full bg-blue-500/20 flex items-center justify-center">
-                          <i class="fas fa-hdd text-3xl text-blue-400"></i>
+    <!-- ==================== SERVICES ==================== -->
+    <section id="services" class="py-20 bg-gray-900 section">
+      <div class="max-w-7xl mx-auto px-6">
+        <h2 class="text-4xl font-bold text-center mb-12">Our IT Solutions</h2>
+
+        <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
+          <!-- Service Card -->
+          <div class="card bg-gray-800 rounded-xl p-8 flex flex-col gap-4">
+            <div class="w-16 h-16 rounded-full bg-blue-500/20 flex items-center justify-center">
+              <i class="fas fa-network-wired text-3xl text-blue-400"></i>
+            </div>
+            <h3 class="text-xl font-semibold">Network Infrastructure</h3>
+            <p class="text-gray-400 flex-1">
+              From design to deployment – we build resilient networks for every size of business.
+            </p>
+          </div>
+
+          <!-- Service Card -->
+          <div class="card bg-gray-800 rounded-xl p-8 flex flex-col gap-4">
+            <div class="w-16 h-16 rounded-full bg-blue-500/20 flex items-center justify-center">
+              <i class="fas fa-laptop text-3xl text-blue-400"></i>
+            </div>
+            <h3 class="text-xl font-semibold">Hardware & Software</h3>
+            <p class="text-gray-400 flex-1">
+              Cutting‑edge servers, workstations, and software suites tailored to your needs.
+            </p>
+          </div>
+
+          <!-- Service Card -->
+          <div class="card bg-gray-800 rounded-xl p-8 flex flex-col gap-4">
+            <div class="w-16 h-16 rounded-full bg-blue-500/20 flex items-center justify-center">
+              <i class="fas fa-cloud text-3xl text-blue-400"></i>
+            </div>
+            <h3 class="text-xl font-semibold">Cloud Solutions</h3>
+            <p class="text-gray-400 flex-1">
+              Secure migration, managed services, and disaster recovery in the cloud.
+            </p>
+          </div>
+
+          <!-- Service Card -->
+          <div class="card bg-gray-800 rounded-xl p-8 flex flex-col gap-4">
+            <div class="w-16 h-16 rounded-full bg-blue-500/20 flex items-center justify-center">
+              <i class="fas fa-shield-alt text-3xl text-blue-400"></i>
+            </div>
+            <h3 class="text-xl font-semibold">Cybersecurity</h3>
+            <p class="text-gray-400 flex-1">
+              Firewalls, endpoint protection, and threat intelligence to keep your assets safe.
+            </p>
+          </div>
+
+          <!-- Service Card -->
+          <div class="card bg-gray-800 rounded-xl p-8 flex flex-col gap-4">
+            <div class="w-16 h-16 rounded-full bg-blue-500/20 flex items-center justify-center">
+              <i class="fas fa-hdd text-3xl text-blue-400"></i>
             </div>
             <h3 class="text-xl font-semibold">Data & Storage</h3>
             <p class="text-gray-400 flex-1">
@@ -226,36 +239,41 @@
     </section>
 
     <!-- ==================== PARTNERS ==================== -->
-    <section id="partners" class="py-20 bg-gray-800">
+    <section id="partners" class="py-20 bg-gray-800 section">
       <div class="max-w-7xl mx-auto px-6">
         <h2 class="text-4xl font-bold text-center text-white mb-12">Our Trusted Partners</h2>
         <div class="grid grid-cols-2 md:grid-cols-4 lg:grid-cols-6 gap-6 items-center justify-items-center">
-          <!-- Partner logo placeholder -->
+          <!-- Partner logos – replace the SVGs with real brand icons -->
           <div class="w-20 h-20 bg-gray-700 rounded-md flex items-center justify-center">
-            <i class="fas fa-cube text-3xl text-blue-400"></i>
-          </div>
-          <!-- Add more partner logos here -->
-          <div class="w-20 h-20 bg-gray-700 rounded-md flex items-center justify-center">
-            <i class="fas fa-cube text-3xl text-blue-400"></i>
+            <i class="fab fa-microsoft text-3xl text-blue-400"></i>
           </div>
           <div class="w-20 h-20 bg-gray-700 rounded-md flex items-center justify-center">
-            <i class="fas fa-cube text-3xl text-blue-400"></i>
+            <i class="fab fa-mtn text-3xl text-blue-400"></i>
           </div>
           <div class="w-20 h-20 bg-gray-700 rounded-md flex items-center justify-center">
-            <i class="fas fa-cube text-3xl text-blue-400"></i>
+            <i class="fas fa-city text-3xl text-blue-400"></i>
           </div>
           <div class="w-20 h-20 bg-gray-700 rounded-md flex items-center justify-center">
-            <i class="fas fa-cube text-3xl text-blue-400"></i>
+            <i class="fas fa-hard-hat text-3xl text-blue-400"></i>
           </div>
           <div class="w-20 h-20 bg-gray-700 rounded-md flex items-center justify-center">
-            <i class="fas fa-cube text-3xl text-blue-400"></i>
+            <i class="fas fa-electrical-services text-3xl text-blue-400"></i>
+          </div>
+          <div class="w-20 h-20 bg-gray-700 rounded-md flex items-center justify-center">
+            <i class="fas fa-robot text-3xl text-blue-400"></i>
+          </div>
+          <div class="w-20 h-20 bg-gray-700 rounded-md flex items-center justify-center">
+            <i class="fas fa-handshake text-3xl text-blue-400"></i>
+          </div>
+          <div class="w-20 h-20 bg-gray-700 rounded-md flex items-center justify-center">
+            <i class="fas fa-rocket text-3xl text-blue-400"></i>
           </div>
         </div>
       </div>
     </section>
 
     <!-- ==================== ABOUT ==================== -->
-    <section id="about" class="py-20 bg-gray-900">
+    <section id="about" class="py-20 bg-gray-900 section">
       <div class="max-w-7xl mx-auto px-6 grid md:grid-cols-2 gap-12 items-center">
         <div>
           <h2 class="text-4xl font-bold mb-6 text-white">Who We Are</h2>
@@ -273,90 +291,110 @@
         <div class="flex justify-center">
           <img src="https://images.unsplash.com/photo-1598514985937-9b3e8a1b8f23?auto=format&fit=crop&w=500&q=80"
                alt="Team in action"
-               class="rounded-xl shadow-2xl transform hover:scale-105 transition duration-300">
-        </div>
+               class="rounded-xl shadow-2xl transform hover:scale-105 transition duration-300ms ease-in-out" />
+    </div>
+  </div>
+</section>
+
+<!-- ==================== CONTACT ==================== -->
+<section id="contact" class="py-20 bg-gray-800 section">
+  <div class="max-w-7xl mx-auto px-6 text-center">
+    <h2 class="text-4xl font-bold text-white mb-6">Get in Touch</h2>
+    <p class="text-gray-400 mb-12">
+      Tell us about your project and our team will get back to you within 24 hours.
+    </p>
+    <form action="mailto:f6tems@gmail.com"
+          method="post"
+          enctype="text/plain"
+          class="max-w-2xl mx-auto space-y-6">
+      <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+        <input type="text"
+               placeholder="Your Name"
+               required
+               class="p-4 rounded-xl bg-gray-700 text-white focus:outline-none focus:ring-2 focus:ring-blue-500">
+        <input type="email"
+               placeholder="Your Email"
+               required
+               class="p-4 rounded-xl bg-gray-700 text-white focus:outline-none focus:ring-2 focus:ring-blue-500">
       </div>
-    </section>
+      <input type="text"
+             placeholder="Subject"
+             required
+             class="p-4 rounded-xl bg-gray-700 text-white w-full focus:outline-none focus:ring-2 focus:ring-blue-500">
+      <textarea placeholder="Your Message"
+                required
+                class="p-4 rounded-xl bg-gray-700 text-white h-32 w-full focus:outline-none focus:ring-2 focus:ring-blue-500"></textarea>
+      <button type="submit"
+              class="px-8 py-3 rounded-full bg-gradient-to-r from-blue-500 to-blue-600 text-white font-semibold hover:from-blue-600 hover:to-blue-700 transition">
+        Send Message
+      </button>
+    </form>
+  </div>
+</section>
 
-    <!-- ==================== CONTACT ==================== -->
-    <section id="contact" class="py-20 bg-gray-800">
-      <div class="max-w-7xl mx-auto px-6 text-center">
-        <h2 class="text-4xl font-bold text-white mb-6">Get in Touch</h2>
-        <p class="text-gray-400 mb-12">
-          Tell us about your project and our team will get back to you within 24 hours.
-        </p>
-        <form class="max-w-2xl mx-auto space-y-6" action="#" method="POST">
-          <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
-            <input type="text"
-                   placeholder="Your Name"
-                   class="p-4 rounded-xl bg-gray-700 text-white focus:outline-none focus:ring-2 focus:ring-blue-500">
-            <input type="email"
-                   placeholder="Your Email"
-                   class="p-4 rounded-xl bg-gray-700 text-white focus:outline-none focus:ring-2 focus:ring-blue-500">
-          </div>
-          <input type="text"
-                 placeholder="Subject"
-                 class="p-4 rounded-xl bg-gray-700 text-white w-full focus:outline-none focus:ring-2 focus:ring-blue-500">
-          <textarea placeholder="Your Message"
-                    class="p-4 rounded-xl bg-gray-700 text-white h-32 w-full focus:outline-none focus:ring-2 focus:ring-blue-500"></textarea>
-          <button type="submit"
-                  class="px-8 py-3 rounded-full bg-gradient-to-r from-blue-500 to-blue-600 text-white font-semibold hover:from-blue-600 hover:to-blue-700 transition">
-            Send Message
-          </button>
-        </form>
+<!-- ==================== FOOTER ==================== -->
+<footer class="bg-gray-900 py-12 section">
+  <div class="max-w-7xl mx-auto px-6 grid grid-cols-1 md:grid-cols-3 gap-8 text-gray-400">
+    <div>
+      <h3 class="text-xl font-semibold mb-2">Fixable 6tems</h3>
+      <p>© 2026 Fixable 6tems. All rights reserved.</p>
+    </div>
+    <div class="flex flex-col space-y-2">
+      <span class="font-semibold">Quick Links</span>
+      <a href="#home" class="hover:text-blue-400 transition">Home</a>
+      <a href="#services" class="hover:text-blue-400 transition">Services</a>
+      <a href="#partners" class="hover:text-blue-400 transition">Partners</a>
+      <a href="#about" class="hover:text-blue-400 transition">About</a>
+      <a href="#contact" class="hover:text-blue-400 transition">Contact</a>
+    </div>
+    <div>
+      <span class="font-semibold">Call Us</span>
+      <p class="mt-2">
+        +234 813 776 0747<br>
+        +234 812 148 3131
+      </p>
+      <span class="font-semibold mt-4">Follow Us</span>
+      <div class="flex space-x-4 mt-2">
+        <a href="#" class="hover:text-blue-400 transition"><i class="fab fa-twitter fa-lg"></i></a>
+        <a href="#" class="hover:text-blue-400 transition"><i class="fab fa-linkedin fa-lg"></i></a>
+        <a href="#" class="hover:text-blue-400 transition"><i class="fab fa-github fa-lg"></i></a>
+        <a href="#" class="hover:text-blue-400 transition"><i class="fab fa-facebook fa-lg"></i></a>
       </div>
-    </section>
+    </div>
+  </div>
+</footer>
 
-    <!-- ==================== FOOTER ==================== -->
-    <footer class="bg-gray-900 py-12">
-      <div class="max-w-7xl mx-auto px-6 grid grid-cols-1 md:grid-cols-3 gap-8 text-gray-400">
-        <div>
-          <h3 class="text-xl font-semibold mb-4">Fixable 6tems</h3>
-          <p>© 2026 Fixable 6tems. All rights reserved.</p>
-        </div>
-        <div class="flex flex-col space-y-2">
-          <span class="font-semibold">Quick Links</span>
-          <a href="#home" class="hover:text-blue-400 transition">Home</a>
-          <a href="#services" class="hover:text-blue-400 transition">Services</a>
-          <a href="#partners" class="hover:text-blue-400 transition">Partners</a>
-          <a href="#about" class="hover:text-blue-400 transition">About</a>
-          <a href="#contact" class="hover:text-blue-400 transition">Contact</a>
-        </div>
-        <div>
-          <span class="font-semibold">Follow Us</span>
-          <div class="flex space-x-4 mt-2">
-            <a href="#" class="hover:text-blue-400 transition"><i class="fab fa-twitter fa-lg"></i></a>
-            <a href="#" class="hover:text-blue-400 transition"><i class="fab fa-linkedin fa-lg"></i></a>
-            <a href="#" class="hover:text-blue-400 transition"><i class="fab fa-github fa-lg"></i></a>
-            <a href="#" class="hover:text-blue-400 transition"><i class="fab fa-facebook fa-lg"></i></a>
-          </div>
-        </div>
-      </div>
-    </footer>
+<!-- ==================== SCROLL TO TOP ==================== -->
+<button id="scrollToTop"
+        class="fixed bottom-8 right-8 p-4 bg-blue-600 rounded-full shadow-xl hover:bg-blue-700 transition
+               hidden lg:flex items-center justify-center text-white z-50">
+  <i class="fas fa-arrow-up"></i>
+</button>
 
-    <!-- ==================== SCROLL TO TOP ==================== -->
-    <button id="scrollToTop" class="fixed bottom-8 right-8 p-4 bg-blue-600 rounded-full shadow-xl hover:bg-blue-700 transition
-                                        hidden lg:flex items-center justify-center text-white z-50">
-      <i class="fas fa-arrow-up"></i>
-    </button>
+<!-- ==================== SCRIPTS ==================== -->
+<script>
+  /* Parallax rotation for hero cloud */
+  const cloud = document.getElementById('cloudIcon');
+  window.addEventListener('scroll', () => {
+    const offset = window.pageYOffset;
+    cloud.style.transform = `translate(-50%,-50%) rotate(${offset * 0.05}deg)`;
+  });
 
-    <!-- ==================== SCRIPTS ==================== -->
-    <script>
-      // Parallax rotation for hero cloud
-      const cloud = document.getElementById('cloudIcon');
-      window.addEventListener('scroll', () => {
-        const offset = window.pageYOffset;
-        cloud.style.transform = `translate(-50%,-50%) rotate(${offset * 0.05}deg)`;
-      });
+  /* Section fade‑in on scroll */
+  const sections = document.querySelectorAll('.section');
+  const observer = new IntersectionObserver(
+    entries => entries.forEach(e => {
+      if (e.isIntersecting) e.target.classList.add('in-view');
+    }),
+    { threshold: 0.1 }
+  );
+  sections.forEach(s => observer.observe(s));
 
-      // Show scroll‑to‑top button
-      const btn = document.getElementById('scrollToTop');
-      window.addEventListener('scroll', () => {
-        if (window.scrollY > 300) btn.classList.add('show');
-        else btn.classList.remove('show');
-      });
+  /* Scroll‑to‑top button */
+  const btn = document.getElementById('scrollToTop');
+  window.addEventListener('scroll', () => {
+    btn.classList.toggle('show', window.scrollY > 300);
+  });
+  btn.addEventListener('click', () => window.scrollTo({ top: 0, behavior: 'smooth' }));
+</script>
 
-      btn.addEventListener('click', () => window.scrollTo({ top: 0, behavior: 'smooth' }));
-    </script>
-  </body>
-</html>
