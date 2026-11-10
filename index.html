@@ -259,6 +259,15 @@
       .pc-float, .pc-chip, .pc-disc, .pc-lines i, .pc-sheen { animation: none; }
     }
 
+    /* ===== Continuous glass sweep (hero 3–4s, stat cards 2–4s) ===== */
+    @keyframes glassSweep { 0% { left: -60%; } 70%, 100% { left: 140%; } }
+    main #home::before, main #home::after, .stat::before { content: ''; position: absolute; top: 0; height: 100%; left: -60%; pointer-events: none; transform: skewX(-20deg); }
+    main #home::before { z-index: 1; width: 40%; background: linear-gradient(100deg,transparent,rgba(255,255,255,.16),transparent); animation: glassSweep 4s ease-in-out infinite; }
+    main #home::after { z-index: 1; width: 8%; background: linear-gradient(100deg,transparent,rgba(255,255,255,.3),transparent); animation: glassSweep 3s ease-in-out 1s infinite; }
+    .stat::before { z-index: 1; width: 45%; background: linear-gradient(100deg,transparent,rgba(255,255,255,.5),transparent); animation: glassSweep var(--gs,3s) ease-in-out infinite; }
+    .s1 { --gs: 2s; } .s2 { --gs: 2.8s; } .s3 { --gs: 3.4s; } .s4 { --gs: 4s; }
+    @media (prefers-reduced-motion: reduce) { main #home::before, main #home::after, .stat::before { animation: none; display: none; } }
+
     :focus-visible { outline: 2px solid #60a5fa; outline-offset: 2px; }
   </style>
   <script>document.documentElement.classList.add('js');setTimeout(function(){if(!window.__ready)document.documentElement.classList.add('reveal-all')},3000);</script>
