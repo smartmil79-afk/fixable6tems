@@ -74,31 +74,54 @@
 
     /* Card hover (transition now on the base state so it animates both ways) */
     .card { transition: transform 0.3s, box-shadow 0.3s; }
-    .card:hover { transform: translateY(-6px); box-shadow: 0 20px 40px rgba(0,0,0,.3); }
+    .card:hover { box-shadow: 0 20px 40px rgba(0,0,0,.35); }
 
-    /* Section fade-in, only when JS is running and motion is allowed */
-    .js .section { opacity: 0; transform: translateY(20px); transition: opacity .6s ease-out, transform .6s ease-out; }
-    .js .section.in-view { opacity: 1; transform: none; }
 
     @media (prefers-reduced-motion: reduce) {
       html { scroll-behavior: auto; }
-      .js .section { opacity: 1; transform: none; transition: none; }
+      .js .reveal { opacity: 1; translate: none; scale: 1; transition: none; }
+      .blob { animation: none; }
       .card, #scrollToTop { transition: none; }
       .card:hover { transform: none; }
     }
 
+    /* Glass */
+    .glass { position: relative; background: linear-gradient(135deg, rgba(255,255,255,.14), rgba(255,255,255,.04));
+      -webkit-backdrop-filter: blur(16px) saturate(140%); backdrop-filter: blur(16px) saturate(140%);
+      border: 1px solid rgba(255,255,255,.18); box-shadow: 0 8px 32px rgba(0,0,0,.35), inset 0 1px 0 rgba(255,255,255,.25); }
+    .glass::after { content: ''; position: absolute; inset: 0; border-radius: inherit; pointer-events: none; opacity: 0; transition: opacity .3s;
+      background: radial-gradient(circle at var(--mx,50%) var(--my,0%), rgba(255,255,255,.18), transparent 45%); }
+    .glass:hover::after { opacity: 1; }
+    .tilt { will-change: transform; }
+
+    /* Scroll reveals (use individual transform props so they don't fight the 3D tilt) */
+    .js .reveal { opacity: 0; translate: 0 40px; transition: opacity .8s cubic-bezier(.2,.7,.2,1) var(--d,0s), translate .8s cubic-bezier(.2,.7,.2,1) var(--d,0s), scale .8s cubic-bezier(.2,.7,.2,1) var(--d,0s); }
+    .js .reveal[data-r="left"] { translate: -60px 0; }
+    .js .reveal[data-r="right"] { translate: 60px 0; }
+    .js .reveal[data-r="zoom"] { translate: 0 20px; scale: .9; }
+    .js .reveal.in, .reveal-all .reveal { opacity: 1; translate: 0 0; scale: 1; }
+
+    /* Floating background glows */
+    .blob { position: absolute; border-radius: 9999px; filter: blur(80px); opacity: .35; pointer-events: none; animation: drift 14s ease-in-out infinite alternate; }
+    @keyframes drift { to { transform: translate3d(40px, -30px, 0) scale(1.15); } }
+
+    #navbar { transition: background .3s, box-shadow .3s; }
+    #navbar.scrolled { background: rgba(17,24,39,.75); box-shadow: 0 10px 30px rgba(0,0,0,.35); }
+    @media (max-width: 767px) { #hero3d { opacity: .45; } }
+
     :focus-visible { outline: 2px solid #60a5fa; outline-offset: 2px; }
   </style>
-  <script>document.documentElement.classList.add('js');</script>
+  <script>document.documentElement.classList.add('js');setTimeout(function(){if(!window.__ready)document.documentElement.classList.add('reveal-all')},3000);</script>
 </head>
 
 <body class="bg-gray-900 text-white antialiased">
 
+  <div id="progress" class="fixed top-0 left-0 h-1 w-full bg-gradient-to-r from-blue-400 to-cyan-300 z-[60] origin-left" style="transform:scaleX(0)" aria-hidden="true"></div>
   <a href="#main" class="sr-only focus:not-sr-only focus:fixed focus:top-2 focus:left-2 focus:z-[60] focus:bg-white focus:text-blue-900 focus:px-4 focus:py-2 focus:rounded">Skip to content</a>
 
   <!-- ==================== NAVBAR ==================== -->
   <nav class="fixed inset-x-0 top-0 z-50 bg-gray-900/90 backdrop-blur-md" id="navbar" aria-label="Main">
-    <div class="max-w-7xl mx-auto px-6 py-4 flex justify-between items-center">
+    <div class="relative z-10 max-w-7xl mx-auto px-6 py-4 flex justify-between items-center">
       <a href="#home" class="flex items-center gap-3" aria-label="Fixable 6Tems home">
         <img src="logo-icon.png" alt="" width="33" height="42" class="h-10 w-auto">
         <span class="text-2xl font-bold text-white">Fixable <span class="text-blue-400">6Tems</span></span>
@@ -137,8 +160,9 @@
   <!-- ==================== HERO ==================== -->
   <section id="home" class="min-h-screen flex items-center relative section pt-24 pb-12">
     <div class="absolute inset-0 bg-gradient-to-r from-indigo-800 via-blue-900 to-indigo-800 opacity-70"></div>
+    <canvas id="hero3d" class="absolute inset-0 w-full h-full pointer-events-none" aria-hidden="true"></canvas>
 
-    <div class="max-w-7xl mx-auto px-6 relative z-10 grid md:grid-cols-2 gap-12 items-center">
+    <div class="relative z-10 max-w-7xl mx-auto px-6 relative z-10 grid md:grid-cols-2 gap-12 items-center">
       <div>
         <h1 class="text-4xl sm:text-5xl md:text-6xl font-extrabold mb-6 gradient-text leading-tight">
           Transform Your Digital Landscape
@@ -163,50 +187,48 @@
         </div>
       </div>
 
-      <div class="hidden md:flex justify-center items-center" aria-hidden="true">
-        <div class="relative">
-          <i class="fas fa-shield-alt text-9xl text-white/20"></i>
-          <i class="fas fa-cloud text-7xl text-blue-400 absolute left-1/2 top-1/2
-                     transform -translate-x-1/2 -translate-y-1/2 parallax-icon"
-             id="cloudIcon"></i>
-        </div>
+      <div class="hidden md:block" aria-hidden="true"></div>
       </div>
     </div>
+    <a href="#services" class="absolute bottom-6 left-1/2 -translate-x-1/2 z-10 text-white/70 hover:text-white" aria-label="Scroll to services"><i class="fas fa-chevron-down animate-bounce" aria-hidden="true"></i></a>
   </section>
 
   <!-- ==================== STATS ==================== -->
   <!-- VERIFY: confirm "50+" and "98%" are accurate before publishing. -->
-  <section class="py-16 bg-gray-800 section" aria-label="Company facts">
-    <div class="max-w-7xl mx-auto px-6 grid grid-cols-2 md:grid-cols-4 gap-8 text-center">
-      <div>
-        <p class="text-4xl font-semibold text-blue-400 mb-2">2016</p>
-        <p class="text-gray-400">Year established</p>
+  <section id="stats" class="relative overflow-hidden py-20 bg-gray-800" aria-label="Company facts">
+    <div class="blob bg-blue-600 w-72 h-72 -top-10 -left-10" data-speed=".12"></div>
+    <div class="blob bg-cyan-500 w-80 h-80 bottom-0 right-0" data-speed="-.1"></div>
+    <div class="relative z-10 max-w-7xl mx-auto px-6 grid grid-cols-2 md:grid-cols-4 gap-6 text-center">
+      <div class="glass tilt rounded-2xl p-8">
+        <p class="text-5xl font-extrabold bg-clip-text text-transparent bg-gradient-to-b from-white to-blue-300 mb-2"><span data-count="2016" data-from="1990">0</span></p>
+        <p class="text-blue-200/80">Year established</p>
       </div>
-      <div>
-        <p class="text-4xl font-semibold text-blue-400 mb-2">50+</p>
-        <p class="text-gray-400">Projects delivered</p>
+      <div class="glass tilt rounded-2xl p-8">
+        <p class="text-5xl font-extrabold bg-clip-text text-transparent bg-gradient-to-b from-white to-blue-300 mb-2"><span data-count="50">0</span>+</p>
+        <p class="text-blue-200/80">Projects delivered</p>
       </div>
-      <div>
-        <p class="text-4xl font-semibold text-blue-400 mb-2">98%</p>
-        <p class="text-gray-400">Client satisfaction</p>
+      <div class="glass tilt rounded-2xl p-8">
+        <p class="text-5xl font-extrabold bg-clip-text text-transparent bg-gradient-to-b from-white to-blue-300 mb-2"><span data-count="98">0</span>%</p>
+        <p class="text-blue-200/80">Client satisfaction</p>
       </div>
-      <div>
-        <!-- Computed from 2016 so it can never contradict the founding year -->
-        <p class="text-4xl font-semibold text-blue-400 mb-2"><span id="yearsInBusiness">10</span>+</p>
-        <p class="text-gray-400">Years in business</p>
+      <div class="glass tilt rounded-2xl p-8">
+        <p class="text-5xl font-extrabold bg-clip-text text-transparent bg-gradient-to-b from-white to-blue-300 mb-2"><span id="yearsInBusiness" data-count="10">0</span>+</p>
+        <p class="text-blue-200/80">Years in business</p>
       </div>
     </div>
   </section>
 
   <!-- ==================== SERVICES ==================== -->
-  <section id="services" class="py-20 bg-gray-900 section">
-    <div class="max-w-7xl mx-auto px-6">
+  <section id="services" class="relative overflow-hidden py-20 bg-gray-900">
+    <div class="blob bg-blue-600 w-72 h-72 top-20 -right-16" data-speed=".1"></div>
+    <div class="blob bg-indigo-600 w-80 h-80 bottom-10 -left-20" data-speed="-.12"></div>
+    <div class="relative z-10 max-w-7xl mx-auto px-6">
       <h2 class="text-4xl font-bold text-center mb-4">Our IT Solutions</h2>
       <p class="text-gray-400 text-center mb-12 max-w-2xl mx-auto">Pick a service and tell us what you need. We reply with a quote.</p>
 
       <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
 
-        <div class="card bg-gray-800 rounded-xl p-8 flex flex-col gap-4">
+        <div class="card glass tilt rounded-2xl p-8 flex flex-col gap-4">
           <div class="w-16 h-16 rounded-full bg-blue-500/20 flex items-center justify-center">
             <i class="fas fa-network-wired text-3xl text-blue-400" aria-hidden="true"></i>
           </div>
@@ -215,7 +237,7 @@
           <a href="#contact" data-service="Network Infrastructure" class="quote-link text-blue-400 font-medium hover:text-blue-300">Request a quote &rarr;</a>
         </div>
 
-        <div class="card bg-gray-800 rounded-xl p-8 flex flex-col gap-4">
+        <div class="card glass tilt rounded-2xl p-8 flex flex-col gap-4">
           <div class="w-16 h-16 rounded-full bg-blue-500/20 flex items-center justify-center">
             <i class="fas fa-laptop text-3xl text-blue-400" aria-hidden="true"></i>
           </div>
@@ -224,7 +246,7 @@
           <a href="#contact" data-service="Hardware & Software" class="quote-link text-blue-400 font-medium hover:text-blue-300">Request a quote &rarr;</a>
         </div>
 
-        <div class="card bg-gray-800 rounded-xl p-8 flex flex-col gap-4">
+        <div class="card glass tilt rounded-2xl p-8 flex flex-col gap-4">
           <div class="w-16 h-16 rounded-full bg-blue-500/20 flex items-center justify-center">
             <i class="fas fa-cloud text-3xl text-blue-400" aria-hidden="true"></i>
           </div>
@@ -233,7 +255,7 @@
           <a href="#contact" data-service="Cloud Solutions" class="quote-link text-blue-400 font-medium hover:text-blue-300">Request a quote &rarr;</a>
         </div>
 
-        <div class="card bg-gray-800 rounded-xl p-8 flex flex-col gap-4">
+        <div class="card glass tilt rounded-2xl p-8 flex flex-col gap-4">
           <div class="w-16 h-16 rounded-full bg-blue-500/20 flex items-center justify-center">
             <i class="fas fa-shield-alt text-3xl text-blue-400" aria-hidden="true"></i>
           </div>
@@ -242,7 +264,7 @@
           <a href="#contact" data-service="Cybersecurity" class="quote-link text-blue-400 font-medium hover:text-blue-300">Request a quote &rarr;</a>
         </div>
 
-        <div class="card bg-gray-800 rounded-xl p-8 flex flex-col gap-4">
+        <div class="card glass tilt rounded-2xl p-8 flex flex-col gap-4">
           <div class="w-16 h-16 rounded-full bg-blue-500/20 flex items-center justify-center">
             <i class="fas fa-hdd text-3xl text-blue-400" aria-hidden="true"></i>
           </div>
@@ -251,7 +273,7 @@
           <a href="#contact" data-service="Data & Storage" class="quote-link text-blue-400 font-medium hover:text-blue-300">Request a quote &rarr;</a>
         </div>
 
-        <div class="card bg-gray-800 rounded-xl p-8 flex flex-col gap-4">
+        <div class="card glass tilt rounded-2xl p-8 flex flex-col gap-4">
           <div class="w-16 h-16 rounded-full bg-blue-500/20 flex items-center justify-center">
             <i class="fas fa-robot text-3xl text-blue-400" aria-hidden="true"></i>
           </div>
@@ -260,7 +282,7 @@
           <a href="#contact" data-service="Automation & AI" class="quote-link text-blue-400 font-medium hover:text-blue-300">Request a quote &rarr;</a>
         </div>
 
-        <div class="card bg-gray-800 rounded-xl p-8 flex flex-col gap-4">
+        <div class="card glass tilt rounded-2xl p-8 flex flex-col gap-4">
           <div class="w-16 h-16 rounded-full bg-blue-500/20 flex items-center justify-center">
             <i class="fas fa-mobile-alt text-3xl text-blue-400" aria-hidden="true"></i>
           </div>
@@ -276,23 +298,25 @@
   <!-- Replaced the old "Trusted Partners" grid: it showed generic icons (some didn't exist in
        Font Awesome) that looked like fake logos. Add a real Partners / Clients logo section
        once you have permission to use the brand logos. -->
-  <section id="clients" class="py-20 bg-gray-800 section">
-    <div class="max-w-7xl mx-auto px-6">
+  <section id="clients" class="relative overflow-hidden py-20 bg-gray-800">
+    <div class="blob bg-cyan-500 w-72 h-72 top-20 -right-16" data-speed=".1"></div>
+    <div class="blob bg-blue-600 w-80 h-80 bottom-10 -left-20" data-speed="-.12"></div>
+    <div class="relative z-10 max-w-7xl mx-auto px-6">
       <h2 class="text-4xl font-bold text-center text-white mb-12">Who We Serve</h2>
       <div class="grid grid-cols-2 md:grid-cols-4 gap-6 text-center">
-        <div class="bg-gray-700/60 rounded-xl p-6">
+        <div class="glass tilt rounded-2xl p-6">
           <i class="fas fa-landmark text-3xl text-blue-400 mb-3" aria-hidden="true"></i>
           <p class="font-semibold">Government agencies</p>
         </div>
-        <div class="bg-gray-700/60 rounded-xl p-6">
+        <div class="glass tilt rounded-2xl p-6">
           <i class="fas fa-building text-3xl text-blue-400 mb-3" aria-hidden="true"></i>
           <p class="font-semibold">Enterprises</p>
         </div>
-        <div class="bg-gray-700/60 rounded-xl p-6">
+        <div class="glass tilt rounded-2xl p-6">
           <i class="fas fa-store text-3xl text-blue-400 mb-3" aria-hidden="true"></i>
           <p class="font-semibold">Small businesses</p>
         </div>
-        <div class="bg-gray-700/60 rounded-xl p-6">
+        <div class="glass tilt rounded-2xl p-6">
           <i class="fas fa-house-signal text-3xl text-blue-400 mb-3" aria-hidden="true"></i>
           <p class="font-semibold">Estates &amp; communities</p>
         </div>
@@ -302,8 +326,10 @@
 
   <!-- ==================== ABOUT ==================== -->
   <!-- VERIFY: "24/7 support" and the certifications below must be true. Removed "Fortune 500". -->
-  <section id="about" class="py-20 bg-gray-900 section">
-    <div class="max-w-7xl mx-auto px-6 grid md:grid-cols-2 gap-12 items-center">
+  <section id="about" class="relative overflow-hidden py-20 bg-gray-900">
+    <div class="blob bg-indigo-600 w-72 h-72 top-20 -right-16" data-speed=".1"></div>
+    <div class="blob bg-cyan-500 w-80 h-80 bottom-10 -left-20" data-speed="-.12"></div>
+    <div class="relative z-10 max-w-7xl mx-auto px-6 grid md:grid-cols-2 gap-12 items-center">
       <div>
         <h2 class="text-4xl font-bold mb-6 text-white">Who We Are</h2>
         <p class="text-gray-400 mb-6 max-w-prose">
@@ -327,8 +353,10 @@
   </section>
 
   <!-- ==================== CONTACT ==================== -->
-  <section id="contact" class="py-20 bg-gray-800 section">
-    <div class="max-w-7xl mx-auto px-6 text-center">
+  <section id="contact" class="relative overflow-hidden py-20 bg-gray-800">
+    <div class="blob bg-blue-600 w-72 h-72 top-20 -right-16" data-speed=".1"></div>
+    <div class="blob bg-cyan-500 w-80 h-80 bottom-10 -left-20" data-speed="-.12"></div>
+    <div class="relative z-10 max-w-7xl mx-auto px-6 text-center">
       <h2 class="text-4xl font-bold text-white mb-6">Get in Touch</h2>
       <p class="text-gray-400 mb-8">Tell us about your project and we will get back to you within 24 hours.</p>
 
@@ -354,23 +382,23 @@
           <div>
             <label for="name" class="block text-sm mb-2 text-gray-300">Your name</label>
             <input id="name" name="name" type="text" required autocomplete="name"
-                   class="w-full p-4 rounded-xl bg-gray-700 text-white focus:outline-none focus:ring-2 focus:ring-blue-500">
+                   class="w-full p-4 rounded-xl bg-white/10 border border-white/15 text-white focus:outline-none focus:ring-2 focus:ring-blue-500">
           </div>
           <div>
             <label for="email" class="block text-sm mb-2 text-gray-300">Your email</label>
             <input id="email" name="email" type="email" required autocomplete="email"
-                   class="w-full p-4 rounded-xl bg-gray-700 text-white focus:outline-none focus:ring-2 focus:ring-blue-500">
+                   class="w-full p-4 rounded-xl bg-white/10 border border-white/15 text-white focus:outline-none focus:ring-2 focus:ring-blue-500">
           </div>
         </div>
         <div>
           <label for="subject" class="block text-sm mb-2 text-gray-300">Subject</label>
           <input id="subject" name="subject" type="text" required
-                 class="w-full p-4 rounded-xl bg-gray-700 text-white focus:outline-none focus:ring-2 focus:ring-blue-500">
+                 class="w-full p-4 rounded-xl bg-white/10 border border-white/15 text-white focus:outline-none focus:ring-2 focus:ring-blue-500">
         </div>
         <div>
           <label for="message" class="block text-sm mb-2 text-gray-300">Your message</label>
           <textarea id="message" name="message" required
-                    class="w-full h-32 p-4 rounded-xl bg-gray-700 text-white focus:outline-none focus:ring-2 focus:ring-blue-500"></textarea>
+                    class="w-full h-32 p-4 rounded-xl bg-white/10 border border-white/15 text-white focus:outline-none focus:ring-2 focus:ring-blue-500"></textarea>
         </div>
         <p id="formNote" class="text-sm text-gray-400" role="status"></p>
         <div class="text-center">
@@ -387,7 +415,7 @@
 
   <!-- ==================== FOOTER ==================== -->
   <footer class="bg-gray-900 py-12">
-    <div class="max-w-7xl mx-auto px-6 grid grid-cols-1 md:grid-cols-3 gap-8 text-gray-400">
+    <div class="relative z-10 max-w-7xl mx-auto px-6 grid grid-cols-1 md:grid-cols-3 gap-8 text-gray-400">
       <div>
         <div class="flex items-center gap-3 mb-2"><img src="logo-icon.png" alt="" width="33" height="42" class="h-10 w-auto"><h3 class="text-xl font-semibold text-white">Fixable 6Tems</h3></div>
         <p>&copy; <span id="year">2026</span> Fixable 6Tems. All rights reserved.</p>
@@ -419,6 +447,7 @@
   </button>
 
   <!-- ==================== SCRIPTS ==================== -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
   <script>
     const reduceMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
 
@@ -438,27 +467,6 @@
       mobileMenu.classList.add('hidden');
       menuBtn.setAttribute('aria-expanded', 'false');
     }));
-
-    /* Hero cloud rotation (throttled with rAF, skipped for reduced motion) */
-    const cloud = document.getElementById('cloudIcon');
-    let ticking = false;
-    if (!reduceMotion) {
-      window.addEventListener('scroll', () => {
-        if (ticking) return;
-        ticking = true;
-        requestAnimationFrame(() => {
-          cloud.style.transform = `translate(-50%,-50%) rotate(${window.scrollY * 0.05}deg)`;
-          ticking = false;
-        });
-      }, { passive: true });
-    }
-
-    /* Section fade-in */
-    const observer = new IntersectionObserver(
-      entries => entries.forEach(e => { if (e.isIntersecting) { e.target.classList.add('in-view'); observer.unobserve(e.target); } }),
-      { threshold: 0.1 }
-    );
-    document.querySelectorAll('.section').forEach(s => observer.observe(s));
 
     /* Scroll-to-top */
     const btn = document.getElementById('scrollToTop');
@@ -482,6 +490,90 @@
         encodeURIComponent(d.get('subject')) + '&body=' + encodeURIComponent(body);
       note.textContent = 'Your email app should open with the message ready to send. If it does not, email f6tems@gmail.com or message us on WhatsApp.';
     });
+
+    /* ===== Scroll reveals ===== */
+    const add=(sel,r,step=.08,base=0,cols=99)=>document.querySelectorAll(sel).forEach((el,i)=>{
+      el.classList.add('reveal'); if(r) el.dataset.r=r; el.style.setProperty('--d',(base+(i%cols)*step)+'s'); });
+    add('#home h1',null,0,.1); add('#home .max-w-7xl p',null,0,.3); add('#home .flex-wrap',null,0,.5);
+    add('main section:not(#home) h2',null,0,0); add('main section:not(#home) h2 + p',null,0,.1);
+    add('#stats .grid > *','zoom',.1,0,4); add('#services .grid > *','up',.1,0,3); add('#clients .grid > *','zoom',.1,0,4);
+    add('#about .grid > div:first-child','left'); add('#about .grid > div:last-child','right',0,.15);
+    add('#contact .max-w-7xl > div, #contact form',null,.12,.2);
+    const rio=new IntersectionObserver(es=>es.forEach(e=>{ if(e.isIntersecting){ e.target.classList.add('in'); rio.unobserve(e.target);} }),{threshold:.15,rootMargin:'0px 0px -6% 0px'});
+    document.querySelectorAll('.reveal').forEach(el=>rio.observe(el));
+    window.__ready=true;
+
+    /* ===== Animated counters ===== */
+    document.getElementById('yearsInBusiness').dataset.count=years;
+    const ease=t=>1-Math.pow(1-t,3);
+    const cio=new IntersectionObserver(es=>es.forEach(e=>{
+      if(!e.isIntersecting) return; cio.unobserve(e.target);
+      const el=e.target,to=+el.dataset.count,from=+(el.dataset.from||0);
+      if(reduceMotion){ el.textContent=to; return; }
+      const t0=performance.now();
+      (function step(now){ const p=Math.min((now-t0)/1800,1); el.textContent=Math.round(from+(to-from)*ease(p)); if(p<1) requestAnimationFrame(step); })(t0);
+    }),{threshold:.6});
+    document.querySelectorAll('[data-count]').forEach(el=>{ el.textContent=el.dataset.from||0; cio.observe(el); });
+
+    /* ===== 3D tilt + glass shine ===== */
+    if(!reduceMotion && matchMedia('(hover:hover)').matches){
+      document.querySelectorAll('.tilt').forEach(el=>{
+        el.addEventListener('pointermove',e=>{
+          const b=el.getBoundingClientRect(),x=(e.clientX-b.left)/b.width,y=(e.clientY-b.top)/b.height;
+          el.style.transition='transform .1s';
+          el.style.transform=`perspective(800px) rotateX(${(.5-y)*10}deg) rotateY(${(x-.5)*12}deg) translateZ(8px)`;
+          el.style.setProperty('--mx',x*100+'%'); el.style.setProperty('--my',y*100+'%');
+        });
+        el.addEventListener('pointerleave',()=>{ el.style.transition='transform .5s'; el.style.transform=''; });
+      });
+    }
+
+    /* ===== Scroll progress, nav state, floating glows ===== */
+    const bar=document.getElementById('progress'),nav=document.getElementById('navbar'),blobs=[...document.querySelectorAll('.blob')];
+    let tk=false;
+    function onScroll(){
+      tk=false; const h=document.documentElement.scrollHeight-innerHeight;
+      bar.style.transform=`scaleX(${h>0?scrollY/h:0})`; nav.classList.toggle('scrolled',scrollY>20);
+      if(!reduceMotion) blobs.forEach(b=>{ const r=b.parentElement.getBoundingClientRect(); b.style.translate=`0 ${r.top*(+b.dataset.speed||.15)}px`; });
+    }
+    addEventListener('scroll',()=>{ if(!tk){ tk=true; requestAnimationFrame(onScroll);} },{passive:true}); onScroll();
+
+    /* ===== 3D hero scene (Three.js) ===== */
+    try{ (function(){
+      const c=document.getElementById('hero3d');
+      if(!c||!window.THREE||reduceMotion) return;
+      const r=new THREE.WebGLRenderer({canvas:c,alpha:true,antialias:true});
+      const small=innerWidth<768; r.setPixelRatio(Math.min(devicePixelRatio,2));
+      const scene=new THREE.Scene(),cam=new THREE.PerspectiveCamera(50,1,.1,100); cam.position.z=10;
+      const g=new THREE.Group(); scene.add(g);
+      const wire=(col,o)=>new THREE.MeshBasicMaterial({color:col,wireframe:true,transparent:true,opacity:o});
+      const core=new THREE.Mesh(new THREE.IcosahedronGeometry(2,1),wire(0x3b82f6,.5));
+      const inner=new THREE.Mesh(new THREE.OctahedronGeometry(1.1,0),wire(0x22d3ee,.9)); g.add(core,inner);
+      const ring=(rad,rx,ry)=>{ const m=new THREE.Mesh(new THREE.TorusGeometry(rad,.015,8,120),new THREE.MeshBasicMaterial({color:0x93c5fd,transparent:true,opacity:.6})); m.rotation.set(rx,ry,0); g.add(m); return m; };
+      const r1=ring(3.4,1.2,.3),r2=ring(4,.4,1);
+      const n=small?24:44,pts=[],dot=new THREE.SphereGeometry(.07,8,8),dm=new THREE.MeshBasicMaterial({color:0xbfdbfe});
+      for(let i=0;i<n;i++){ const y=1-2*(i+.5)/n,rad=Math.sqrt(1-y*y),t=i*2.399963;
+        const p=new THREE.Vector3(Math.cos(t)*rad,y,Math.sin(t)*rad).multiplyScalar(3.1); pts.push(p);
+        const m=new THREE.Mesh(dot,dm); m.position.copy(p); g.add(m); }
+      const lp=[]; for(let i=0;i<n;i++) for(let j=i+1;j<n;j++) if(pts[i].distanceTo(pts[j])<2.1) lp.push(pts[i].x,pts[i].y,pts[i].z,pts[j].x,pts[j].y,pts[j].z);
+      const lg=new THREE.BufferGeometry(); lg.setAttribute('position',new THREE.Float32BufferAttribute(lp,3));
+      g.add(new THREE.LineSegments(lg,new THREE.LineBasicMaterial({color:0x60a5fa,transparent:true,opacity:.35})));
+      const dust=new Float32Array((small?150:300)*3); for(let i=0;i<dust.length;i++) dust[i]=(Math.random()-.5)*28;
+      const dg=new THREE.BufferGeometry(); dg.setAttribute('position',new THREE.BufferAttribute(dust,3));
+      const stars=new THREE.Points(dg,new THREE.PointsMaterial({color:0x93c5fd,size:.05,transparent:true,opacity:.7})); scene.add(stars);
+      function size(){ const w=c.clientWidth,h=c.clientHeight; r.setSize(w,h,false); cam.aspect=w/h; cam.updateProjectionMatrix();
+        const wide=w>=768; g.position.set(wide?3.4:0,wide?0:2.2,0); g.scale.setScalar(wide?.9:.7); }
+      size(); addEventListener('resize',size);
+      let mx=0,my=0,tx=0,ty=0,run=true;
+      addEventListener('pointermove',e=>{ mx=e.clientX/innerWidth-.5; my=e.clientY/innerHeight-.5; },{passive:true});
+      new IntersectionObserver(es=>{ run=es[0].isIntersecting; }).observe(c);
+      const clock=new THREE.Clock();
+      (function loop(){ requestAnimationFrame(loop); if(!run||document.hidden) return;
+        const t=clock.getElapsedTime(); tx+=(mx-tx)*.05; ty+=(my-ty)*.05;
+        g.rotation.y=t*.15+tx*1.2+scrollY*.0015; g.rotation.x=ty*.8;
+        core.rotation.x=t*.2; inner.rotation.y=-t*.5; inner.rotation.x=t*.3; r1.rotation.z=t*.25; r2.rotation.z=-t*.18;
+        stars.rotation.y=t*.01+scrollY*.0004; r.render(scene,cam); })();
+    })(); }catch(err){ console.warn('3D scene skipped',err); }
   </script>
 </body>
 </html>
