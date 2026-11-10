@@ -5,7 +5,35 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
 
-  <title>Fixable 6tems – IT Solutions</title>
+  <title>Fixable 6tems – IT Solutions in Nigeria</title>
+  <meta name="description" content="Fixable 6tems delivers network infrastructure, cloud and backup, cybersecurity, hardware and software, and app development for government agencies and businesses in Nigeria.">
+  <meta name="theme-color" content="#111827">
+  <link rel="canonical" href="https://smartmil79-afk.github.io/fixable6tems/">
+
+  <!-- Social sharing -->
+  <meta property="og:type" content="website">
+  <meta property="og:title" content="Fixable 6tems – IT Solutions">
+  <meta property="og:description" content="Networks, cloud and backup, cybersecurity, hardware and software, and app development.">
+  <meta property="og:url" content="https://smartmil79-afk.github.io/fixable6tems/">
+  <meta name="twitter:card" content="summary">
+
+  <!-- Favicon (inline, no extra file needed) -->
+  <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect width='64' height='64' rx='14' fill='%231e3a8a'/%3E%3Ctext x='32' y='43' font-size='32' font-family='Arial' font-weight='700' fill='white' text-anchor='middle'%3EF6%3C/text%3E%3C/svg%3E">
+
+  <!-- Structured data for Google -->
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "ProfessionalService",
+    "name": "Fixable 6tems",
+    "description": "IT solutions: networks, cloud and backup, cybersecurity, hardware and software, app development.",
+    "url": "https://smartmil79-afk.github.io/fixable6tems/",
+    "email": "f6tems@gmail.com",
+    "telephone": ["+2348137760747", "+2348121483131"],
+    "foundingDate": "2016",
+    "areaServed": "NG"
+  }
+  </script>
 
   <!-- Tailwind CDN (v3.4) -->
   <script src="https://cdn.tailwindcss.com"></script>
@@ -15,111 +43,127 @@
         href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css">
 
   <!-- Google Font – Inter -->
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap"
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap"
         rel="stylesheet">
 
   <style>
-    html {
-      scroll-behavior: smooth;
+    html { scroll-behavior: smooth; scroll-padding-top: 5rem; }
+    body { font-family: 'Inter', system-ui, sans-serif; }
+
+    /* Hero headline gradient (this class was referenced but never defined before) */
+    .gradient-text {
+      background: linear-gradient(90deg, #ffffff, #93c5fd);
+      -webkit-background-clip: text;
+      background-clip: text;
+      color: transparent;
     }
 
-    /* 3‑D parallax rotation for hero icon */
-    .parallax-icon {
-      transition: transform 0.8s cubic-bezier(0.2, 0.8, 0.2, 1);
-      transform-style: preserve-3d;
-    }
+    .parallax-icon { transform-style: preserve-3d; }
 
-    /* Scroll‑to‑top button animation */
+    /* Scroll-to-top button */
     #scrollToTop {
       opacity: 0;
+      pointer-events: none;
       transform: translateY(100px);
       transition: opacity 0.3s, transform 0.3s;
     }
+    #scrollToTop.show { opacity: 1; pointer-events: auto; transform: translateY(0); }
 
-    #scrollToTop.show {
-      opacity: 1;
-      transform: translateY(0);
+    /* Card hover (transition now on the base state so it animates both ways) */
+    .card { transition: transform 0.3s, box-shadow 0.3s; }
+    .card:hover { transform: translateY(-6px); box-shadow: 0 20px 40px rgba(0,0,0,.3); }
+
+    /* Section fade-in, only when JS is running and motion is allowed */
+    .js .section { opacity: 0; transform: translateY(20px); transition: opacity .6s ease-out, transform .6s ease-out; }
+    .js .section.in-view { opacity: 1; transform: none; }
+
+    @media (prefers-reduced-motion: reduce) {
+      html { scroll-behavior: auto; }
+      .js .section { opacity: 1; transform: none; transition: none; }
+      .card, #scrollToTop { transition: none; }
+      .card:hover { transform: none; }
     }
 
-    /* Hover card lift */
-    .card:hover {
-      transform: translateY(-8px);
-      box-shadow: 0 20px 40px rgba(0, 0, 0, 0.2);
-      transition: transform 0.3s, box-shadow 0.3s;
-    }
-
-    /* Section fade‑in animation */
-    .section {
-      opacity: 0;
-      transform: translateY(20px);
-      transition: opacity 0.6s ease-out, transform 0.6s ease-out;
-    }
-
-    .section.in-view {
-      opacity: 1;
-      transform: translateY(0);
-    }
+    :focus-visible { outline: 2px solid #60a5fa; outline-offset: 2px; }
   </style>
+  <script>document.documentElement.classList.add('js');</script>
 </head>
 
-<body class="bg-gray-900 text-white font-sans antialiased">
+<body class="bg-gray-900 text-white antialiased">
+
+  <a href="#main" class="sr-only focus:not-sr-only focus:fixed focus:top-2 focus:left-2 focus:z-[60] focus:bg-white focus:text-blue-900 focus:px-4 focus:py-2 focus:rounded">Skip to content</a>
 
   <!-- ==================== NAVBAR ==================== -->
-  <nav class="fixed inset-x-0 top-0 z-50 bg-gray-900/90 backdrop-blur-md transition-all duration-300"
-       id="navbar">
+  <nav class="fixed inset-x-0 top-0 z-50 bg-gray-900/90 backdrop-blur-md" id="navbar" aria-label="Main">
     <div class="max-w-7xl mx-auto px-6 py-4 flex justify-between items-center">
-      <!-- Logo -->
-      <div class="flex items-center space-x-2 text-2xl font-bold text-transparent bg-clip-text
-                  bg-gradient-to-r from-blue-400 to-indigo-500">
-        <i class="fas fa-network-wired"></i>
+      <a href="#home" class="flex items-center space-x-2 text-2xl font-bold text-transparent bg-clip-text
+                  bg-gradient-to-r from-blue-400 to-indigo-500" aria-label="Fixable 6tems home">
+        <i class="fas fa-network-wired text-blue-400" aria-hidden="true"></i>
         <span>Fixable 6tems</span>
-      </div>
+      </a>
 
-      <!-- Desktop links -->
       <div class="hidden md:flex space-x-8 text-sm font-medium">
-        <a href="#home" class="hover:text-blue-400 transition">Home</a>
         <a href="#services" class="hover:text-blue-400 transition">Services</a>
-        <a href="#partners" class="hover:text-blue-400 transition">Partners</a>
+        <a href="#clients" class="hover:text-blue-400 transition">Who we serve</a>
         <a href="#about" class="hover:text-blue-400 transition">About</a>
         <a href="#contact" class="hover:text-blue-400 transition">Contact</a>
       </div>
 
-      <!-- Call‑to‑action -->
-      <a href="#contact"
-         class="px-6 py-2 rounded-full bg-gradient-to-r from-blue-500 to-blue-600
-                 text-white font-semibold hover:from-blue-600 hover:to-blue-700 transition">
-        Contact Now
-      </a>
+      <div class="flex items-center gap-3">
+        <a href="#contact"
+           class="hidden sm:inline-block px-6 py-2 rounded-full bg-gradient-to-r from-blue-500 to-blue-600
+                  text-white font-semibold hover:from-blue-600 hover:to-blue-700 transition">
+          Contact us
+        </a>
+        <!-- Mobile menu button (the nav links were hidden on phones before) -->
+        <button id="menuBtn" class="md:hidden p-2 text-xl" aria-label="Open menu" aria-expanded="false" aria-controls="mobileMenu">
+          <i class="fas fa-bars" aria-hidden="true"></i>
+        </button>
+      </div>
+    </div>
+
+    <div id="mobileMenu" class="hidden md:hidden border-t border-gray-800 bg-gray-900 px-6 py-4 space-y-3 text-sm font-medium">
+      <a href="#services" class="block hover:text-blue-400">Services</a>
+      <a href="#clients" class="block hover:text-blue-400">Who we serve</a>
+      <a href="#about" class="block hover:text-blue-400">About</a>
+      <a href="#contact" class="block hover:text-blue-400">Contact</a>
     </div>
   </nav>
 
+  <main id="main">
+
   <!-- ==================== HERO ==================== -->
-  <section id="home" class="min-h-screen flex items-center relative section">
+  <section id="home" class="min-h-screen flex items-center relative section pt-24 pb-12">
     <div class="absolute inset-0 bg-gradient-to-r from-indigo-800 via-blue-900 to-indigo-800 opacity-70"></div>
 
     <div class="max-w-7xl mx-auto px-6 relative z-10 grid md:grid-cols-2 gap-12 items-center">
-      <!-- Text -->
       <div>
-        <h1 class="text-5xl md:text-6xl font-extrabold mb-6 gradient-text">
+        <h1 class="text-4xl sm:text-5xl md:text-6xl font-extrabold mb-6 gradient-text leading-tight">
           Transform Your Digital Landscape
         </h1>
-        <p class="text-xl text-blue-200 mb-8">
-          End‑to‑end IT solutions for governments & enterprises since 2016.
+        <p class="text-xl text-blue-200 mb-8 max-w-xl">
+          End-to-end IT solutions for government agencies and businesses, since 2016.
         </p>
-        <div class="flex space-x-4">
+        <div class="flex flex-wrap gap-4">
           <a href="#contact"
              class="px-6 py-3 bg-white text-blue-900 rounded-xl font-semibold hover:bg-gray-200 transition">
-            Get Started
+            Get a free quote
+          </a>
+          <a href="https://wa.me/2348137760747?text=Hello%20Fixable%206tems%2C%20I%27d%20like%20to%20discuss%20an%20IT%20project."
+             target="_blank" rel="noopener"
+             class="px-6 py-3 bg-green-500 text-white rounded-xl font-semibold hover:bg-green-600 transition">
+            <i class="fab fa-whatsapp mr-2" aria-hidden="true"></i>Chat on WhatsApp
           </a>
           <a href="#services"
              class="px-6 py-3 border-2 border-white text-white rounded-xl hover:bg-white/10 transition">
-            Learn More
+            See services
           </a>
         </div>
       </div>
 
-      <!-- Icon -->
-      <div class="flex justify-center items-center">
+      <div class="hidden md:flex justify-center items-center" aria-hidden="true">
         <div class="relative">
           <i class="fas fa-shield-alt text-9xl text-white/20"></i>
           <i class="fas fa-cloud text-7xl text-blue-400 absolute left-1/2 top-1/2
@@ -127,274 +171,317 @@
              id="cloudIcon"></i>
         </div>
       </div>
-        
-    </section>
-
-    <!-- ==================== STATS ==================== -->
-    <section class="py-16 bg-gray-800 section">
-      <div class="max-w-7xl mx-auto grid grid-cols-2 md:grid-cols-4 gap-8 text-center">
-        <div>
-          <h3 class="text-4xl font-semibold text-blue-400 mb-2">2016</h3>
-          <p class="text-gray-400">Year Established</p>
-        </div>
-        <div>
-          <h3 class="text-4xl font-semibold text-blue-400 mb-2">50+</h3>
-          <p class="text-gray-400">Projects Delivered</p>
-        </div>
-        <div>
-          <h3 class="text-4xl font-semibold text-blue-400 mb-2">98%</h3>
-          <p class="text-gray-400">Client Satisfaction</p>
-        </div>
-        <div>
-          <h3 class="text-4xl font-semibold text-blue-400 mb-2">15+</h3>
-          <p class="text-gray-400">Years Experience</p>
-        </div>
-      </div>
-    </section>
-
-    <!-- ==================== SERVICES ==================== -->
-    <section id="services" class="py-20 bg-gray-900 section">
-      <div class="max-w-7xl mx-auto px-6">
-        <h2 class="text-4xl font-bold text-center mb-12">Our IT Solutions</h2>
-
-        <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
-          <!-- Service Card -->
-          <div class="card bg-gray-800 rounded-xl p-8 flex flex-col gap-4">
-            <div class="w-16 h-16 rounded-full bg-blue-500/20 flex items-center justify-center">
-              <i class="fas fa-network-wired text-3xl text-blue-400"></i>
-            </div>
-            <h3 class="text-xl font-semibold">Network Infrastructure</h3>
-            <p class="text-gray-400 flex-1">
-              From design to deployment – we build resilient networks for every size of business.
-            </p>
-          </div>
-
-          <!-- Service Card -->
-          <div class="card bg-gray-800 rounded-xl p-8 flex flex-col gap-4">
-            <div class="w-16 h-16 rounded-full bg-blue-500/20 flex items-center justify-center">
-              <i class="fas fa-laptop text-3xl text-blue-400"></i>
-            </div>
-            <h3 class="text-xl font-semibold">Hardware & Software</h3>
-            <p class="text-gray-400 flex-1">
-              Cutting‑edge servers, workstations, and software suites tailored to your needs.
-            </p>
-          </div>
-
-          <!-- Service Card -->
-          <div class="card bg-gray-800 rounded-xl p-8 flex flex-col gap-4">
-            <div class="w-16 h-16 rounded-full bg-blue-500/20 flex items-center justify-center">
-              <i class="fas fa-cloud text-3xl text-blue-400"></i>
-            </div>
-            <h3 class="text-xl font-semibold">Cloud Solutions</h3>
-            <p class="text-gray-400 flex-1">
-              Secure migration, managed services, and disaster recovery in the cloud.
-            </p>
-          </div>
-
-          <!-- Service Card -->
-          <div class="card bg-gray-800 rounded-xl p-8 flex flex-col gap-4">
-            <div class="w-16 h-16 rounded-full bg-blue-500/20 flex items-center justify-center">
-              <i class="fas fa-shield-alt text-3xl text-blue-400"></i>
-            </div>
-            <h3 class="text-xl font-semibold">Cybersecurity</h3>
-            <p class="text-gray-400 flex-1">
-              Firewalls, endpoint protection, and threat intelligence to keep your assets safe.
-            </p>
-          </div>
-
-          <!-- Service Card -->
-          <div class="card bg-gray-800 rounded-xl p-8 flex flex-col gap-4">
-            <div class="w-16 h-16 rounded-full bg-blue-500/20 flex items-center justify-center">
-              <i class="fas fa-hdd text-3xl text-blue-400"></i>
-            </div>
-            <h3 class="text-xl font-semibold">Data & Storage</h3>
-            <p class="text-gray-400 flex-1">
-              Scalable storage solutions – from SAN to NAS and cloud‑based backups.
-            </p>
-          </div>
-
-          <!-- Service Card -->
-          <div class="card bg-gray-800 rounded-xl p-8 flex flex-col gap-4">
-            <div class="w-16 h-16 rounded-full bg-blue-500/20 flex items-center justify-center">
-              <i class="fas fa-robot text-3xl text-blue-400"></i>
-            </div>
-            <h3 class="text-xl font-semibold">Automation & AI</h3>
-            <p class="text-gray-400 flex-1">
-              Intelligent workflows, RPA, and predictive analytics to streamline operations.
-            </p>
-          </div>
-
-          <!-- Service Card -->
-          <div class="card bg-gray-800 rounded-xl p-8 flex flex-col gap-4">
-            <div class="w-16 h-16 rounded-full bg-blue-500/20 flex items-center justify-center">
-              <i class="fas fa-mobile-alt text-3xl text-blue-400"></i>
-            </div>
-            <h3 class="text-xl font-semibold">Mobile & App Development</h3>
-            <p class="text-gray-400 flex-1">
-              Native & cross‑platform apps that keep your teams productive on the go.
-            </p>
-          </div>
-        </div>
-      </div>
-    </section>
-
-    <!-- ==================== PARTNERS ==================== -->
-    <section id="partners" class="py-20 bg-gray-800 section">
-      <div class="max-w-7xl mx-auto px-6">
-        <h2 class="text-4xl font-bold text-center text-white mb-12">Our Trusted Partners</h2>
-        <div class="grid grid-cols-2 md:grid-cols-4 lg:grid-cols-6 gap-6 items-center justify-items-center">
-          <!-- Partner logos – replace the SVGs with real brand icons -->
-          <div class="w-20 h-20 bg-gray-700 rounded-md flex items-center justify-center">
-            <i class="fab fa-microsoft text-3xl text-blue-400"></i>
-          </div>
-          <div class="w-20 h-20 bg-gray-700 rounded-md flex items-center justify-center">
-            <i class="fab fa-mtn text-3xl text-blue-400"></i>
-          </div>
-          <div class="w-20 h-20 bg-gray-700 rounded-md flex items-center justify-center">
-            <i class="fas fa-city text-3xl text-blue-400"></i>
-          </div>
-          <div class="w-20 h-20 bg-gray-700 rounded-md flex items-center justify-center">
-            <i class="fas fa-hard-hat text-3xl text-blue-400"></i>
-          </div>
-          <div class="w-20 h-20 bg-gray-700 rounded-md flex items-center justify-center">
-            <i class="fas fa-electrical-services text-3xl text-blue-400"></i>
-          </div>
-          <div class="w-20 h-20 bg-gray-700 rounded-md flex items-center justify-center">
-            <i class="fas fa-robot text-3xl text-blue-400"></i>
-          </div>
-          <div class="w-20 h-20 bg-gray-700 rounded-md flex items-center justify-center">
-            <i class="fas fa-handshake text-3xl text-blue-400"></i>
-          </div>
-          <div class="w-20 h-20 bg-gray-700 rounded-md flex items-center justify-center">
-            <i class="fas fa-rocket text-3xl text-blue-400"></i>
-          </div>
-        </div>
-      </div>
-    </section>
-
-    <!-- ==================== ABOUT ==================== -->
-    <section id="about" class="py-20 bg-gray-900 section">
-      <div class="max-w-7xl mx-auto px-6 grid md:grid-cols-2 gap-12 items-center">
-        <div>
-          <h2 class="text-4xl font-bold mb-6 text-white">Who We Are</h2>
-          <p class="text-gray-400 mb-6">
-            Fixable 6tems is a full‑service IT company that brings decades of experience,
-            cutting‑edge technology, and a passion for problem‑solving to government
-            agencies, Fortune 500 firms, and emerging enterprises.
-          </p>
-          <ul class="space-y-4 text-gray-400">
-            <li class="flex items-center"><i class="fas fa-check text-blue-400 mr-3"></i>Proven track record of 50+ successful projects.</li>
-            <li class="flex items-center"><i class="fas fa-check text-blue-400 mr-3"></i>Dedicated 24/7 support teams.</li>
-            <li class="flex items-center"><i class="fas fa-check text-blue-400 mr-3"></i>Certified experts across AWS, Azure, GCP, and on‑prem.</li>
-          </ul>
-        </div>
-        <div class="flex justify-center">
-          <img src="https://images.unsplash.com/photo-1598514985937-9b3e8a1b8f23?auto=format&fit=crop&w=500&q=80"
-               alt="Team in action"
-               class="rounded-xl shadow-2xl transform hover:scale-105 transition duration-300ms ease-in-out" />
     </div>
-  </div>
-</section>
+  </section>
 
-<!-- ==================== CONTACT ==================== -->
-<section id="contact" class="py-20 bg-gray-800 section">
-  <div class="max-w-7xl mx-auto px-6 text-center">
-    <h2 class="text-4xl font-bold text-white mb-6">Get in Touch</h2>
-    <p class="text-gray-400 mb-12">
-      Tell us about your project and our team will get back to you within 24 hours.
-    </p>
-    <form action="mailto:f6tems@gmail.com"
-          method="post"
-          enctype="text/plain"
-          class="max-w-2xl mx-auto space-y-6">
-      <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
-        <input type="text"
-               placeholder="Your Name"
-               required
-               class="p-4 rounded-xl bg-gray-700 text-white focus:outline-none focus:ring-2 focus:ring-blue-500">
-        <input type="email"
-               placeholder="Your Email"
-               required
-               class="p-4 rounded-xl bg-gray-700 text-white focus:outline-none focus:ring-2 focus:ring-blue-500">
+  <!-- ==================== STATS ==================== -->
+  <!-- VERIFY: confirm "50+" and "98%" are accurate before publishing. -->
+  <section class="py-16 bg-gray-800 section" aria-label="Company facts">
+    <div class="max-w-7xl mx-auto px-6 grid grid-cols-2 md:grid-cols-4 gap-8 text-center">
+      <div>
+        <p class="text-4xl font-semibold text-blue-400 mb-2">2016</p>
+        <p class="text-gray-400">Year established</p>
       </div>
-      <input type="text"
-             placeholder="Subject"
-             required
-             class="p-4 rounded-xl bg-gray-700 text-white w-full focus:outline-none focus:ring-2 focus:ring-blue-500">
-      <textarea placeholder="Your Message"
-                required
-                class="p-4 rounded-xl bg-gray-700 text-white h-32 w-full focus:outline-none focus:ring-2 focus:ring-blue-500"></textarea>
-      <button type="submit"
-              class="px-8 py-3 rounded-full bg-gradient-to-r from-blue-500 to-blue-600 text-white font-semibold hover:from-blue-600 hover:to-blue-700 transition">
-        Send Message
-      </button>
-    </form>
-  </div>
-</section>
-
-<!-- ==================== FOOTER ==================== -->
-<footer class="bg-gray-900 py-12 section">
-  <div class="max-w-7xl mx-auto px-6 grid grid-cols-1 md:grid-cols-3 gap-8 text-gray-400">
-    <div>
-      <h3 class="text-xl font-semibold mb-2">Fixable 6tems</h3>
-      <p>© 2026 Fixable 6tems. All rights reserved.</p>
-    </div>
-    <div class="flex flex-col space-y-2">
-      <span class="font-semibold">Quick Links</span>
-      <a href="#home" class="hover:text-blue-400 transition">Home</a>
-      <a href="#services" class="hover:text-blue-400 transition">Services</a>
-      <a href="#partners" class="hover:text-blue-400 transition">Partners</a>
-      <a href="#about" class="hover:text-blue-400 transition">About</a>
-      <a href="#contact" class="hover:text-blue-400 transition">Contact</a>
-    </div>
-    <div>
-      <span class="font-semibold">Call Us</span>
-      <p class="mt-2">
-        +234 813 776 0747<br>
-        +234 812 148 3131
-      </p>
-      <span class="font-semibold mt-4">Follow Us</span>
-      <div class="flex space-x-4 mt-2">
-        <a href="#" class="hover:text-blue-400 transition"><i class="fab fa-twitter fa-lg"></i></a>
-        <a href="#" class="hover:text-blue-400 transition"><i class="fab fa-linkedin fa-lg"></i></a>
-        <a href="#" class="hover:text-blue-400 transition"><i class="fab fa-github fa-lg"></i></a>
-        <a href="#" class="hover:text-blue-400 transition"><i class="fab fa-facebook fa-lg"></i></a>
+      <div>
+        <p class="text-4xl font-semibold text-blue-400 mb-2">50+</p>
+        <p class="text-gray-400">Projects delivered</p>
+      </div>
+      <div>
+        <p class="text-4xl font-semibold text-blue-400 mb-2">98%</p>
+        <p class="text-gray-400">Client satisfaction</p>
+      </div>
+      <div>
+        <!-- Computed from 2016 so it can never contradict the founding year -->
+        <p class="text-4xl font-semibold text-blue-400 mb-2"><span id="yearsInBusiness">10</span>+</p>
+        <p class="text-gray-400">Years in business</p>
       </div>
     </div>
-  </div>
-</footer>
+  </section>
 
-<!-- ==================== SCROLL TO TOP ==================== -->
-<button id="scrollToTop"
-        class="fixed bottom-8 right-8 p-4 bg-blue-600 rounded-full shadow-xl hover:bg-blue-700 transition
-               hidden lg:flex items-center justify-center text-white z-50">
-  <i class="fas fa-arrow-up"></i>
-</button>
+  <!-- ==================== SERVICES ==================== -->
+  <section id="services" class="py-20 bg-gray-900 section">
+    <div class="max-w-7xl mx-auto px-6">
+      <h2 class="text-4xl font-bold text-center mb-4">Our IT Solutions</h2>
+      <p class="text-gray-400 text-center mb-12 max-w-2xl mx-auto">Pick a service and tell us what you need. We reply with a quote.</p>
 
-<!-- ==================== SCRIPTS ==================== -->
-<script>
-  /* Parallax rotation for hero cloud */
-  const cloud = document.getElementById('cloudIcon');
-  window.addEventListener('scroll', () => {
-    const offset = window.pageYOffset;
-    cloud.style.transform = `translate(-50%,-50%) rotate(${offset * 0.05}deg)`;
-  });
+      <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
 
-  /* Section fade‑in on scroll */
-  const sections = document.querySelectorAll('.section');
-  const observer = new IntersectionObserver(
-    entries => entries.forEach(e => {
-      if (e.isIntersecting) e.target.classList.add('in-view');
-    }),
-    { threshold: 0.1 }
-  );
-  sections.forEach(s => observer.observe(s));
+        <div class="card bg-gray-800 rounded-xl p-8 flex flex-col gap-4">
+          <div class="w-16 h-16 rounded-full bg-blue-500/20 flex items-center justify-center">
+            <i class="fas fa-network-wired text-3xl text-blue-400" aria-hidden="true"></i>
+          </div>
+          <h3 class="text-xl font-semibold">Network Infrastructure</h3>
+          <p class="text-gray-400 flex-1">From design to deployment, we build resilient networks for every size of business.</p>
+          <a href="#contact" data-service="Network Infrastructure" class="quote-link text-blue-400 font-medium hover:text-blue-300">Request a quote &rarr;</a>
+        </div>
 
-  /* Scroll‑to‑top button */
-  const btn = document.getElementById('scrollToTop');
-  window.addEventListener('scroll', () => {
-    btn.classList.toggle('show', window.scrollY > 300);
-  });
-  btn.addEventListener('click', () => window.scrollTo({ top: 0, behavior: 'smooth' }));
-</script>
+        <div class="card bg-gray-800 rounded-xl p-8 flex flex-col gap-4">
+          <div class="w-16 h-16 rounded-full bg-blue-500/20 flex items-center justify-center">
+            <i class="fas fa-laptop text-3xl text-blue-400" aria-hidden="true"></i>
+          </div>
+          <h3 class="text-xl font-semibold">Hardware &amp; Software</h3>
+          <p class="text-gray-400 flex-1">Servers, workstations, and software suites chosen to fit your needs and budget.</p>
+          <a href="#contact" data-service="Hardware & Software" class="quote-link text-blue-400 font-medium hover:text-blue-300">Request a quote &rarr;</a>
+        </div>
 
+        <div class="card bg-gray-800 rounded-xl p-8 flex flex-col gap-4">
+          <div class="w-16 h-16 rounded-full bg-blue-500/20 flex items-center justify-center">
+            <i class="fas fa-cloud text-3xl text-blue-400" aria-hidden="true"></i>
+          </div>
+          <h3 class="text-xl font-semibold">Cloud Solutions</h3>
+          <p class="text-gray-400 flex-1">Secure migration, managed services, and disaster recovery in the cloud.</p>
+          <a href="#contact" data-service="Cloud Solutions" class="quote-link text-blue-400 font-medium hover:text-blue-300">Request a quote &rarr;</a>
+        </div>
+
+        <div class="card bg-gray-800 rounded-xl p-8 flex flex-col gap-4">
+          <div class="w-16 h-16 rounded-full bg-blue-500/20 flex items-center justify-center">
+            <i class="fas fa-shield-alt text-3xl text-blue-400" aria-hidden="true"></i>
+          </div>
+          <h3 class="text-xl font-semibold">Cybersecurity</h3>
+          <p class="text-gray-400 flex-1">Firewalls, endpoint protection, and threat monitoring to keep your assets safe.</p>
+          <a href="#contact" data-service="Cybersecurity" class="quote-link text-blue-400 font-medium hover:text-blue-300">Request a quote &rarr;</a>
+        </div>
+
+        <div class="card bg-gray-800 rounded-xl p-8 flex flex-col gap-4">
+          <div class="w-16 h-16 rounded-full bg-blue-500/20 flex items-center justify-center">
+            <i class="fas fa-hdd text-3xl text-blue-400" aria-hidden="true"></i>
+          </div>
+          <h3 class="text-xl font-semibold">Data &amp; Storage</h3>
+          <p class="text-gray-400 flex-1">Scalable storage from SAN to NAS, plus cloud-based backups.</p>
+          <a href="#contact" data-service="Data & Storage" class="quote-link text-blue-400 font-medium hover:text-blue-300">Request a quote &rarr;</a>
+        </div>
+
+        <div class="card bg-gray-800 rounded-xl p-8 flex flex-col gap-4">
+          <div class="w-16 h-16 rounded-full bg-blue-500/20 flex items-center justify-center">
+            <i class="fas fa-robot text-3xl text-blue-400" aria-hidden="true"></i>
+          </div>
+          <h3 class="text-xl font-semibold">Automation &amp; AI</h3>
+          <p class="text-gray-400 flex-1">Workflow automation and analytics that cut repetitive work.</p>
+          <a href="#contact" data-service="Automation & AI" class="quote-link text-blue-400 font-medium hover:text-blue-300">Request a quote &rarr;</a>
+        </div>
+
+        <div class="card bg-gray-800 rounded-xl p-8 flex flex-col gap-4">
+          <div class="w-16 h-16 rounded-full bg-blue-500/20 flex items-center justify-center">
+            <i class="fas fa-mobile-alt text-3xl text-blue-400" aria-hidden="true"></i>
+          </div>
+          <h3 class="text-xl font-semibold">Mobile &amp; App Development</h3>
+          <p class="text-gray-400 flex-1">Native and cross-platform apps that keep your teams productive on the go.</p>
+          <a href="#contact" data-service="Mobile & App Development" class="quote-link text-blue-400 font-medium hover:text-blue-300">Request a quote &rarr;</a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ==================== WHO WE SERVE ==================== -->
+  <!-- Replaced the old "Trusted Partners" grid: it showed generic icons (some didn't exist in
+       Font Awesome) that looked like fake logos. Add a real Partners / Clients logo section
+       once you have permission to use the brand logos. -->
+  <section id="clients" class="py-20 bg-gray-800 section">
+    <div class="max-w-7xl mx-auto px-6">
+      <h2 class="text-4xl font-bold text-center text-white mb-12">Who We Serve</h2>
+      <div class="grid grid-cols-2 md:grid-cols-4 gap-6 text-center">
+        <div class="bg-gray-700/60 rounded-xl p-6">
+          <i class="fas fa-landmark text-3xl text-blue-400 mb-3" aria-hidden="true"></i>
+          <p class="font-semibold">Government agencies</p>
+        </div>
+        <div class="bg-gray-700/60 rounded-xl p-6">
+          <i class="fas fa-building text-3xl text-blue-400 mb-3" aria-hidden="true"></i>
+          <p class="font-semibold">Enterprises</p>
+        </div>
+        <div class="bg-gray-700/60 rounded-xl p-6">
+          <i class="fas fa-store text-3xl text-blue-400 mb-3" aria-hidden="true"></i>
+          <p class="font-semibold">Small businesses</p>
+        </div>
+        <div class="bg-gray-700/60 rounded-xl p-6">
+          <i class="fas fa-house-signal text-3xl text-blue-400 mb-3" aria-hidden="true"></i>
+          <p class="font-semibold">Estates &amp; communities</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ==================== ABOUT ==================== -->
+  <!-- VERIFY: "24/7 support" and the certifications below must be true. Removed "Fortune 500". -->
+  <section id="about" class="py-20 bg-gray-900 section">
+    <div class="max-w-7xl mx-auto px-6 grid md:grid-cols-2 gap-12 items-center">
+      <div>
+        <h2 class="text-4xl font-bold mb-6 text-white">Who We Are</h2>
+        <p class="text-gray-400 mb-6 max-w-prose">
+          Fixable 6tems is a full-service IT company that brings experience, current technology,
+          and a passion for problem-solving to government agencies, established enterprises,
+          and growing businesses.
+        </p>
+        <ul class="space-y-4 text-gray-400">
+          <li class="flex items-start"><i class="fas fa-check text-blue-400 mr-3 mt-1" aria-hidden="true"></i>Proven track record of 50+ successful projects.</li>
+          <li class="flex items-start"><i class="fas fa-check text-blue-400 mr-3 mt-1" aria-hidden="true"></i>Dedicated 24/7 support teams.</li>
+          <li class="flex items-start"><i class="fas fa-check text-blue-400 mr-3 mt-1" aria-hidden="true"></i>Certified experts across AWS, Azure, GCP, and on-prem.</li>
+        </ul>
+      </div>
+      <div class="flex justify-center">
+        <!-- Swap this stock photo for a real photo of your team or work -->
+        <img src="https://images.unsplash.com/photo-1598514985937-9b3e8a1b8f23?auto=format&fit=crop&w=500&q=80"
+             alt="IT team working on equipment" width="500" height="333" loading="lazy"
+             class="rounded-xl shadow-2xl max-w-full h-auto" />
+      </div>
+    </div>
+  </section>
+
+  <!-- ==================== CONTACT ==================== -->
+  <section id="contact" class="py-20 bg-gray-800 section">
+    <div class="max-w-7xl mx-auto px-6 text-center">
+      <h2 class="text-4xl font-bold text-white mb-6">Get in Touch</h2>
+      <p class="text-gray-400 mb-8">Tell us about your project and we will get back to you within 24 hours.</p>
+
+      <div class="flex flex-wrap justify-center gap-4 mb-10">
+        <a href="https://wa.me/2348137760747" target="_blank" rel="noopener"
+           class="px-5 py-3 rounded-full bg-green-500 hover:bg-green-600 font-semibold transition">
+          <i class="fab fa-whatsapp mr-2" aria-hidden="true"></i>WhatsApp
+        </a>
+        <a href="tel:+2348137760747" class="px-5 py-3 rounded-full bg-gray-700 hover:bg-gray-600 font-semibold transition">
+          <i class="fas fa-phone mr-2" aria-hidden="true"></i>Call
+        </a>
+        <a href="mailto:f6tems@gmail.com" class="px-5 py-3 rounded-full bg-gray-700 hover:bg-gray-600 font-semibold transition">
+          <i class="fas fa-envelope mr-2" aria-hidden="true"></i>Email
+        </a>
+      </div>
+
+      <!-- The old form had no name attributes and used a mailto action with enctype text/plain,
+           so it sent nothing useful. This version builds an email in the visitor's mail app.
+           To receive messages without their mail app, create a free Formspree/Web3Forms form
+           and I can wire it in. -->
+      <form id="contactForm" class="max-w-2xl mx-auto space-y-6 text-left" novalidate>
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+          <div>
+            <label for="name" class="block text-sm mb-2 text-gray-300">Your name</label>
+            <input id="name" name="name" type="text" required autocomplete="name"
+                   class="w-full p-4 rounded-xl bg-gray-700 text-white focus:outline-none focus:ring-2 focus:ring-blue-500">
+          </div>
+          <div>
+            <label for="email" class="block text-sm mb-2 text-gray-300">Your email</label>
+            <input id="email" name="email" type="email" required autocomplete="email"
+                   class="w-full p-4 rounded-xl bg-gray-700 text-white focus:outline-none focus:ring-2 focus:ring-blue-500">
+          </div>
+        </div>
+        <div>
+          <label for="subject" class="block text-sm mb-2 text-gray-300">Subject</label>
+          <input id="subject" name="subject" type="text" required
+                 class="w-full p-4 rounded-xl bg-gray-700 text-white focus:outline-none focus:ring-2 focus:ring-blue-500">
+        </div>
+        <div>
+          <label for="message" class="block text-sm mb-2 text-gray-300">Your message</label>
+          <textarea id="message" name="message" required
+                    class="w-full h-32 p-4 rounded-xl bg-gray-700 text-white focus:outline-none focus:ring-2 focus:ring-blue-500"></textarea>
+        </div>
+        <p id="formNote" class="text-sm text-gray-400" role="status"></p>
+        <div class="text-center">
+          <button type="submit"
+                  class="px-8 py-3 rounded-full bg-gradient-to-r from-blue-500 to-blue-600 text-white font-semibold hover:from-blue-600 hover:to-blue-700 transition">
+            Send message
+          </button>
+        </div>
+      </form>
+    </div>
+  </section>
+
+  </main>
+
+  <!-- ==================== FOOTER ==================== -->
+  <footer class="bg-gray-900 py-12">
+    <div class="max-w-7xl mx-auto px-6 grid grid-cols-1 md:grid-cols-3 gap-8 text-gray-400">
+      <div>
+        <h3 class="text-xl font-semibold mb-2 text-white">Fixable 6tems</h3>
+        <p>&copy; <span id="year">2026</span> Fixable 6tems. All rights reserved.</p>
+      </div>
+      <div class="flex flex-col space-y-2">
+        <span class="font-semibold text-white">Quick links</span>
+        <a href="#services" class="hover:text-blue-400 transition">Services</a>
+        <a href="#clients" class="hover:text-blue-400 transition">Who we serve</a>
+        <a href="#about" class="hover:text-blue-400 transition">About</a>
+        <a href="#contact" class="hover:text-blue-400 transition">Contact</a>
+      </div>
+      <div>
+        <span class="font-semibold text-white">Contact</span>
+        <p class="mt-2 space-y-1">
+          <a href="tel:+2348137760747" class="block hover:text-blue-400">+234 813 776 0747</a>
+          <a href="tel:+2348121483131" class="block hover:text-blue-400">+234 812 148 3131</a>
+          <a href="mailto:f6tems@gmail.com" class="block hover:text-blue-400">f6tems@gmail.com</a>
+        </p>
+        <!-- Social icons removed: all four linked to "#". Add them back with real profile URLs. -->
+      </div>
+    </div>
+  </footer>
+
+  <!-- ==================== SCROLL TO TOP ==================== -->
+  <button id="scrollToTop" aria-label="Scroll to top"
+          class="fixed bottom-8 right-8 p-4 bg-blue-600 rounded-full shadow-xl hover:bg-blue-700 transition
+                 flex items-center justify-center text-white z-50">
+    <i class="fas fa-arrow-up" aria-hidden="true"></i>
+  </button>
+
+  <!-- ==================== SCRIPTS ==================== -->
+  <script>
+    const reduceMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+    /* Years in business, always consistent with 2016 */
+    const years = new Date().getFullYear() - 2016;
+    document.getElementById('yearsInBusiness').textContent = years;
+    document.getElementById('year').textContent = new Date().getFullYear();
+
+    /* Mobile menu */
+    const menuBtn = document.getElementById('menuBtn');
+    const mobileMenu = document.getElementById('mobileMenu');
+    menuBtn.addEventListener('click', () => {
+      const open = mobileMenu.classList.toggle('hidden') === false;
+      menuBtn.setAttribute('aria-expanded', open);
+    });
+    mobileMenu.querySelectorAll('a').forEach(a => a.addEventListener('click', () => {
+      mobileMenu.classList.add('hidden');
+      menuBtn.setAttribute('aria-expanded', 'false');
+    }));
+
+    /* Hero cloud rotation (throttled with rAF, skipped for reduced motion) */
+    const cloud = document.getElementById('cloudIcon');
+    let ticking = false;
+    if (!reduceMotion) {
+      window.addEventListener('scroll', () => {
+        if (ticking) return;
+        ticking = true;
+        requestAnimationFrame(() => {
+          cloud.style.transform = `translate(-50%,-50%) rotate(${window.scrollY * 0.05}deg)`;
+          ticking = false;
+        });
+      }, { passive: true });
+    }
+
+    /* Section fade-in */
+    const observer = new IntersectionObserver(
+      entries => entries.forEach(e => { if (e.isIntersecting) { e.target.classList.add('in-view'); observer.unobserve(e.target); } }),
+      { threshold: 0.1 }
+    );
+    document.querySelectorAll('.section').forEach(s => observer.observe(s));
+
+    /* Scroll-to-top */
+    const btn = document.getElementById('scrollToTop');
+    window.addEventListener('scroll', () => btn.classList.toggle('show', window.scrollY > 300), { passive: true });
+    btn.addEventListener('click', () => window.scrollTo({ top: 0, behavior: reduceMotion ? 'auto' : 'smooth' }));
+
+    /* "Request a quote" links pre-fill the subject */
+    document.querySelectorAll('.quote-link').forEach(link => link.addEventListener('click', () => {
+      document.getElementById('subject').value = 'Quote request: ' + link.dataset.service;
+    }));
+
+    /* Contact form: opens the visitor's email app with the message filled in */
+    const form = document.getElementById('contactForm');
+    const note = document.getElementById('formNote');
+    form.addEventListener('submit', e => {
+      e.preventDefault();
+      if (!form.checkValidity()) { form.reportValidity(); return; }
+      const d = new FormData(form);
+      const body = `${d.get('message')}\n\nFrom: ${d.get('name')} <${d.get('email')}>`;
+      window.location.href = 'mailto:f6tems@gmail.com?subject=' +
+        encodeURIComponent(d.get('subject')) + '&body=' + encodeURIComponent(body);
+      note.textContent = 'Your email app should open with the message ready to send. If it does not, email f6tems@gmail.com or message us on WhatsApp.';
+    });
+  </script>
+</body>
+</html>
